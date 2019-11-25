@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
@@ -43,43 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Harmony\Extras\DelegateTypeFactory.cs" />
-    <Compile Include="Harmony\Extras\FastAccess.cs" />
-    <Compile Include="Harmony\Extras\MethodInvoker.cs" />
-    <Compile Include="Harmony\GlobalSuppressions.cs" />
-    <Compile Include="Harmony\Internal\AccessCache.cs" />
-    <Compile Include="Harmony\Internal\ByteBuffer.cs" />
-    <Compile Include="Harmony\Internal\CodeTranspiler.cs" />
-    <Compile Include="Harmony\Internal\DynamicTools.cs" />
-    <Compile Include="Harmony\Internal\Emitter.cs" />
-    <Compile Include="Harmony\Internal\HarmonySharedState.cs" />
-    <Compile Include="Harmony\Internal\ILInstruction.cs" />
-    <Compile Include="Harmony\Internal\Memory.cs" />
-    <Compile Include="Harmony\Internal\MethodCopier.cs" />
-    <Compile Include="Harmony\Internal\MethodPatcher.cs" />
-    <Compile Include="Harmony\Internal\NativeThisPointerCheck.cs" />
-    <Compile Include="Harmony\Internal\PatchFunctions.cs" />
-    <Compile Include="Harmony\Internal\PatchSorter.cs" />
-    <Compile Include="Harmony\Internal\PatchTools.cs" />
-    <Compile Include="Harmony\Internal\SelfPatching.cs" />
-    <Compile Include="Harmony\Internal\Signature.cs" />
-    <Compile Include="Harmony\Public\Attributes.cs" />
-    <Compile Include="Harmony\Public\CodeInstruction.cs" />
-    <Compile Include="Harmony\Public\ExceptionBlock.cs" />
-    <Compile Include="Harmony\Public\Harmony.cs" />
-    <Compile Include="Harmony\Public\HarmonyMethod.cs" />
-    <Compile Include="Harmony\Public\Patch.cs" />
-    <Compile Include="Harmony\Public\Patches.cs" />
-    <Compile Include="Harmony\Public\PatchProcessor.cs" />
-    <Compile Include="Harmony\Public\Priority.cs" />
-    <Compile Include="Harmony\Public\ReversePatcher.cs" />
-    <Compile Include="Harmony\Public\Transpilers.cs" />
-    <Compile Include="Harmony\Tools\AccessTools.cs" />
-    <Compile Include="Harmony\Tools\CodeMatcher.cs" />
-    <Compile Include="Harmony\Tools\Extensions.cs" />
-    <Compile Include="Harmony\Tools\FileLog.cs" />
-    <Compile Include="Harmony\Tools\SymbolExtensions.cs" />
-    <Compile Include="Harmony\Tools\Traverse.cs" />
     <Compile Include="HashPatch.cs" />
     <Compile Include="ProgramVariables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,5 +58,25 @@
     <Compile Include="Tools.cs" />
     <Compile Include="UserInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Harmony\Harmony\Harmony.csproj">
+      <Project>{953b53f6-d629-4c6d-8ec2-3a509d1e0500}</Project>
+      <Name>Harmony</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Fody.6.0.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.0.0\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.6.0.0\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.6.0.0\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props'))" />
+  </Target>
 </Project>
