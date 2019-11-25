@@ -18,14 +18,14 @@ namespace TrinitySealPatcher {
             }
 
             var runtimepath = Path.GetDirectoryName(typeof(Program).Assembly.Location) + "\\TrinitySeal.dll";
-            var runtimedll = ModuleDefMD.Load(Path.GetDirectoryName(typeof(Program).Assembly.Location) + "\\TrinitySeal.dll");
+            var runtime = ModuleDefMD.Load(runtimepath);
             var target = ModuleDefMD.Load(args[0]);
 
             var folder = Path.GetDirectoryName(args[0]);
 
             var ctor = target.GlobalType.FindOrCreateStaticConstructor();
 
-            ctor.Body.Instructions.Insert(0, OpCodes.Call.ToInstruction(new Importer(target).Import(runtimedll.Find("TrinitySeal.HashPatch", false).FindMethod("ApplyHook"))));
+            ctor.Body.Instructions.Insert(0, OpCodes.Call.ToInstruction(new Importer(target).Import(runtime.Find("TrinitySeal.HashPatch", false).FindMethod("ApplyHook"))));
 
             target.NativeWrite($"{folder}\\{Path.GetFileNameWithoutExtension(args[0])}-patched.{Path.GetExtension(args[0])}");
 

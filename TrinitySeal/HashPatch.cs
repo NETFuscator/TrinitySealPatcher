@@ -15,7 +15,7 @@ namespace TrinitySeal {
         }
 
         public static void ApplyHook() {
-            _instance = new Harmony("jebany.trinitysealpatch");
+            _instance = new Harmony("com.netfuscator.trinity");
             _instance.PatchAll();
         }
 
