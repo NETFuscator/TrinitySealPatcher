@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0D4204A9-7F27-4CEE-8744-662FC2CD84FD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TrinitySeal</RootNamespace>
+    <AssemblyName>TrinitySeal</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Harmony\Extras\DelegateTypeFactory.cs" />
+    <Compile Include="Harmony\Extras\FastAccess.cs" />
+    <Compile Include="Harmony\Extras\MethodInvoker.cs" />
+    <Compile Include="Harmony\GlobalSuppressions.cs" />
+    <Compile Include="Harmony\Internal\AccessCache.cs" />
+    <Compile Include="Harmony\Internal\ByteBuffer.cs" />
+    <Compile Include="Harmony\Internal\CodeTranspiler.cs" />
+    <Compile Include="Harmony\Internal\DynamicTools.cs" />
+    <Compile Include="Harmony\Internal\Emitter.cs" />
+    <Compile Include="Harmony\Internal\HarmonySharedState.cs" />
+    <Compile Include="Harmony\Internal\ILInstruction.cs" />
+    <Compile Include="Harmony\Internal\Memory.cs" />
+    <Compile Include="Harmony\Internal\MethodCopier.cs" />
+    <Compile Include="Harmony\Internal\MethodPatcher.cs" />
+    <Compile Include="Harmony\Internal\NativeThisPointerCheck.cs" />
+    <Compile Include="Harmony\Internal\PatchFunctions.cs" />
+    <Compile Include="Harmony\Internal\PatchSorter.cs" />
+    <Compile Include="Harmony\Internal\PatchTools.cs" />
+    <Compile Include="Harmony\Internal\SelfPatching.cs" />
+    <Compile Include="Harmony\Internal\Signature.cs" />
+    <Compile Include="Harmony\Public\Attributes.cs" />
+    <Compile Include="Harmony\Public\CodeInstruction.cs" />
+    <Compile Include="Harmony\Public\ExceptionBlock.cs" />
+    <Compile Include="Harmony\Public\Harmony.cs" />
+    <Compile Include="Harmony\Public\HarmonyMethod.cs" />
+    <Compile Include="Harmony\Public\Patch.cs" />
+    <Compile Include="Harmony\Public\Patches.cs" />
+    <Compile Include="Harmony\Public\PatchProcessor.cs" />
+    <Compile Include="Harmony\Public\Priority.cs" />
+    <Compile Include="Harmony\Public\ReversePatcher.cs" />
+    <Compile Include="Harmony\Public\Transpilers.cs" />
+    <Compile Include="Harmony\Tools\AccessTools.cs" />
+    <Compile Include="Harmony\Tools\CodeMatcher.cs" />
+    <Compile Include="Harmony\Tools\Extensions.cs" />
+    <Compile Include="Harmony\Tools\FileLog.cs" />
+    <Compile Include="Harmony\Tools\SymbolExtensions.cs" />
+    <Compile Include="Harmony\Tools\Traverse.cs" />
+    <Compile Include="HashPatch.cs" />
+    <Compile Include="ProgramVariables.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seal.cs" />
+    <Compile Include="SealColours.cs" />
+    <Compile Include="Security.cs" />
+    <Compile Include="Tools.cs" />
+    <Compile Include="UserInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
