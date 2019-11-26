@@ -34,16 +34,19 @@ namespace TrinitySealPatcher {
 
             writer.Options.MetadataOptions.PreserveHeapOrder(target, true);
 
-            writer.Write($"{folder}\\{Path.GetFileNameWithoutExtension(args[0])}-patched.{Path.GetExtension(args[0])}");
+            writer.Write(Path.Combine(folder, $"{Path.GetFileNameWithoutExtension(args[0])}-patched{Path.GetExtension(args[0])}"));
 
-            if (File.Exists($"{folder}\\TrinitySeal.dll")) {
-                if (File.Exists($"{folder}\\TrinitySeal.dll.bak"))
-                    File.Delete($"{folder}\\TrinitySeal.dll.bak");
+            var trintyDll = Path.Combine(folder, "TrinitySeal.dll");
+            var trintyDllBak = Path.Combine(folder, "TrinitySeal.dll.bak");
 
-                File.Move($"{folder}\\TrinitySeal.dll", $"{folder}\\TrinitySeal.dll.bak");
+            if (File.Exists(trintyDll)) {
+                if (File.Exists(trintyDllBak))
+                    File.Delete(trintyDllBak);
+
+                File.Move(trintyDll, trintyDllBak);
             }
 
-            File.Copy(runtimepath, $"{folder}\\TrinitySeal.dll");
+            File.Copy(runtimepath, trintyDll);
         }
     }
 }
