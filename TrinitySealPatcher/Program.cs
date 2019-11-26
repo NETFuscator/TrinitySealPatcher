@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using dnlib;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
+using dnlib.DotNet.Writer;
 
 namespace TrinitySealPatcher {
     class Program {
@@ -27,10 +28,20 @@ namespace TrinitySealPatcher {
 
             ctor.Body.Instructions.Insert(0, OpCodes.Call.ToInstruction(new Importer(target).Import(runtime.Find("TrinitySeal.HashPatch", false).FindMethod("ApplyHook"))));
 
-            target.NativeWrite($"{folder}\\{Path.GetFileNameWithoutExtension(args[0])}-patched.{Path.GetExtension(args[0])}");
+            var writer = new NativeModuleWriter(target, new NativeModuleWriterOptions(target, true));
 
-            if (File.Exists($"{folder}\\TrinitySeal.dll"))
+            writer.Options.MetadataOptions.Flags |= MetadataFlags.PreserveAll | MetadataFlags.KeepOldMaxStack;
+
+            writer.Options.MetadataOptions.PreserveHeapOrder(target, true);
+
+            writer.Write($"{folder}\\{Path.GetFileNameWithoutExtension(args[0])}-patched.{Path.GetExtension(args[0])}");
+
+            if (File.Exists($"{folder}\\TrinitySeal.dll")) {
+                if (File.Exists($"{folder}\\TrinitySeal.dll.bak"))
+                    File.Delete($"{folder}\\TrinitySeal.dll.bak");
+
                 File.Move($"{folder}\\TrinitySeal.dll", $"{folder}\\TrinitySeal.dll.bak");
+            }
 
             File.Copy(runtimepath, $"{folder}\\TrinitySeal.dll");
         }
